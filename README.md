@@ -2,6 +2,8 @@
 
 A simple, elegant, and dependency-free web page that displays a name and the current time in real-time.
 
+Deployed at: https://clokwork2719.github.io/diy1/
+
 ## Features
 
 - **Real-time Clock**: Updates every second using vanilla JavaScript.
