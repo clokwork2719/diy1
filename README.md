@@ -1,21 +1,22 @@
-# Minimalist Clock Page
+# Interactive 3D Clock Page
 
-A simple, elegant, and dependency-free web page that displays a name and the current time in real-time.
+A premium, highly interactive, and dependency-free web page featuring a dynamic 3D glassmorphic design and real-time clock.
 
-Deployed at: https://clokwork2719.github.io/diy1/
+**Deployed at: [https://clokwork2719.github.io/diy1/](https://clokwork2719.github.io/diy1/)**
 
-## Features
+## ✨ Dynamic Features
 
-- **Real-time Clock**: Updates every second using vanilla JavaScript.
-- **Micro-animations**: Smooth entry animation for a premium feel.
-- **Native Dark Mode**: Automatically detects and switches between light and dark themes based on system settings.
-- **Zero Dependencies**: Pure HTML, CSS, and JS — no external libraries required.
-- **Responsive Design**: Looks great on all screen sizes.
+- **3D Parallax Tilt**: The main card reacts to your cursor movement with a smooth 3D tilt effect, including internal element depth.
+- **Interactive Custom Cursor**: A dual-element cursor design with a "magnetic" trailing outline that reacts to buttons and cards.
+- **Moving Background Glow**: A subtle radial light source that follows your mouse, illuminating the high-contrast dark theme.
+- **Glassmorphic UI**: Modern aesthetic using backdrop-filter blurs, semi-transparent borders, and vibrant gradients.
+- **Real-time Clock & Date**: Updates every second using high-performance vanilla JavaScript.
+- **Responsive & Lightweight**: Pure HTML, CSS, and JS — no external libraries, zero dependencies, and lightning-fast load times.
 
-## Project Structure
+## 🛠️ Project Structure
 
-- `index.html`: The main entry point containing the structure, styles, and logic.
+- `index.html`: Contains all the structure, advanced CSS variables, and interaction logic.
 
-## Usage
+## 🚀 Usage
 
-Simply open `index.html` in any modern web browser to view the page.
+Simply open `index.html` in any modern web browser to experience the interactivity.
