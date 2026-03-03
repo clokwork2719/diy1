@@ -5,13 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Time Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --text-color: #212529;
-            --accent-color: #007bff;
-            --card-bg: #ffffff;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --mouse-x: 50%;
+            --mouse-y: 50%;
         }
 
         body {
@@ -22,73 +27,131 @@
             align-items: center;
             min-height: 100vh;
             background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 1) 0%, rgba(2, 6, 23, 1) 100%);
             color: var(--text-color);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            transition: background-color 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            cursor: none;
+            /* Hide default cursor */
+        }
+
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            transition: transform 0.1s ease-out, background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            transition: left 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+                top 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+                width 0.3s ease,
+                height 0.3s ease,
+                border-color 0.3s ease,
+                background-color 0.3s ease;
+        }
+
+        body.hovering .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(56, 189, 248, 0.1);
+            border-color: var(--accent-color);
         }
 
         .container {
             background-color: var(--card-bg);
-            padding: 3rem;
-            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 4rem;
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: var(--shadow);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
-            animation: fadeIn 0.8s ease-out;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 32px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), transparent, rgba(56, 189, 248, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         h1 {
             font-weight: 300;
             margin-bottom: 0.5rem;
-            font-size: 2rem;
+            font-size: 2.2rem;
             letter-spacing: -0.5px;
+            transform: translateZ(50px);
         }
 
         .name {
-            font-weight: 600;
-            color: var(--accent-color);
+            font-weight: 700;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         #clock {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             font-weight: 700;
             margin-top: 1rem;
             font-variant-numeric: tabular-nums;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
+            transform: translateZ(80px);
+            color: #fff;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .date {
-            font-size: 1rem;
-            color: #6c757d;
-            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-top: 1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transform: translateZ(30px);
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: rotateX(10deg) translateY(30px) scale(0.95);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #121212;
-                --text-color: #e0e0e0;
-                --card-bg: #1e1e1e;
-                --shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            }
-
-            .date {
-                color: #888;
+                transform: rotateX(0) translateY(0) scale(1);
             }
         }
     </style>
@@ -96,28 +159,69 @@
 
 <body>
 
-    <div class="container">
-        <h1><span class="name">David Chuang</span></h1>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div class="container" id="card">
+        <h1>Hi, I'm <span class="name">David Chuang</span></h1>
         <div id="clock">00:00:00</div>
         <div class="date" id="date">Loading...</div>
     </div>
 
     <script>
+        const clock = document.getElementById('clock');
+        const dateElement = document.getElementById('date');
+        const card = document.getElementById('card');
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+
         function updateTime() {
             const now = new Date();
-
-            // Format time
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            clock.textContent = `${hours}:${minutes}:${seconds}`;
 
-            // Format date
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('date').textContent = now.toLocaleDateString(undefined, options);
+            dateElement.textContent = now.toLocaleDateString(undefined, options);
         }
 
-        // Update time immediately and then every second
+        // Mouse interaction
+        window.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+
+            // Move custom cursor
+            dot.style.left = `${clientX}px`;
+            dot.style.top = `${clientY}px`;
+
+            outline.style.left = `${clientX}px`;
+            outline.style.top = `${clientY}px`;
+
+            // Update background glow coordinates
+            const xPct = (clientX / window.innerWidth) * 100;
+            const yPct = (clientY / window.innerHeight) * 100;
+            document.documentElement.style.setProperty('--mouse-x', `${xPct}%`);
+            document.documentElement.style.setProperty('--mouse-y', `${yPct}%`);
+
+            // Card tilt effect
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const rotateX = (centerY - clientY) / 25;
+            const rotateY = (clientX - centerX) / 25;
+
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        // Hover effect for cursor
+        card.addEventListener('mouseenter', () => {
+            document.body.classList.add('hovering');
+        });
+
+        card.addEventListener('mouseleave', () => {
+            document.body.classList.remove('hovering');
+            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        });
+
         updateTime();
         setInterval(updateTime, 1000);
     </script>
